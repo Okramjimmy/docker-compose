@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  gitlab:
+    image: "gitlab/gitlab-ce:latest"
+    container_name: gitlab
+    restart: always
+    hostname: "gitlab.example.com" # Change this to your domain
+    ports:
+      - "80:80"
+      - "443:443"
+      - "2222:22" # Git SSH
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.example.com'  # Change this to your external url or use an IP address
+
+volumes:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:
